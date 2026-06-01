@@ -2,7 +2,7 @@
 
 WARNING: This file contains placeholder values only. The repository previously included unconfirmed endpoints. All concrete hostnames and unverified paths have been removed.
 
-If you see references to `api.phantomsms.com`, `/messages`, `/otp`, `/otp/verify`, or `/virtual_numbers` in this repository, they were unconfirmed and were replaced with placeholders.
+The following specific paths and hosts have been removed if present: `api.phantomsms.com`, `/messages`, `/otp`, `/otp/verify`, `/virtual_numbers`.
 
 Before using this repository, determine the correct base URL and paths for your PhantomSMS deployment. Use the environment variable `PHANTOMSMS_API_BASE` to configure the base URL in examples and scripts.
 
