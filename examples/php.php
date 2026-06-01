@@ -1,16 +1,21 @@
 <?php
 // PHP example for PhantomSMS API (uses placeholder PHANTOMSMS_API_BASE)
-// WARNING: This example uses placeholders. Configure PHANTOMSMS_API_BASE and PHANTOMSMS_API_KEY in your environment.
+// This example will refuse to run until PHANTOMSMS_API_BASE is set in the environment.
 
-$apiBase = getenv('PHANTOMSMS_API_BASE') ?: 'PHANTOMSMS_API_BASE';
-$apiKey  = getenv('PHANTOMSMS_API_KEY') ?: 'YOUR_API_KEY';
+$apiBase = getenv('PHANTOMSMS_API_BASE');
+$apiKey  = getenv('PHANTOMSMS_API_KEY');
 
-if ($apiBase === 'PHANTOMSMS_API_BASE') {
+if (!$apiBase) {
     fwrite(STDERR, "ERROR: PHANTOMSMS_API_BASE is not set. Please set the environment variable to your API base URL.\n");
     exit(1);
 }
 
-$url = rtrim($apiBase, '/') . '/v1/messages';
+if (!$apiKey) {
+    fwrite(STDERR, "ERROR: PHANTOMSMS_API_KEY is not set. Please set the environment variable to your API key.\n");
+    exit(1);
+}
+
+$url = rtrim($apiBase, '/') . '/v1/messages'; // placeholder path — replace with confirmed path
 $data = json_encode(["to" => "+1234567890", "message" => "Hello from PhantomSMS PHP example"]);
 
 $ch = curl_init($url);

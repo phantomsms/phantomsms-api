@@ -2,17 +2,21 @@
 """
 Example Python usage for PhantomSMS API (uses placeholder PHANTOMSMS_API_BASE).
 
-WARNING: This script uses placeholders and will NOT work until you set the PHANTOMSMS_API_BASE and PHANTOMSMS_API_KEY environment variables.
+This example will refuse to run until you set PHANTOMSMS_API_BASE in your environment.
 """
 import os
 import requests
 import sys
 
-API_BASE = os.environ.get('PHANTOMSMS_API_BASE', 'PHANTOMSMS_API_BASE')
-API_KEY = os.environ.get('PHANTOMSMS_API_KEY', 'YOUR_API_KEY')
+API_BASE = os.environ.get('PHANTOMSMS_API_BASE')
+API_KEY = os.environ.get('PHANTOMSMS_API_KEY')
 
-if API_BASE == 'PHANTOMSMS_API_BASE':
+if not API_BASE:
     print('ERROR: PHANTOMSMS_API_BASE is not set. Please set the environment variable to your API base URL.')
+    sys.exit(1)
+
+if not API_KEY:
+    print('ERROR: PHANTOMSMS_API_KEY is not set. Please set the environment variable to your API key.')
     sys.exit(1)
 
 headers = {
@@ -20,7 +24,7 @@ headers = {
     'Content-Type': 'application/json'
 }
 
-# Example: send a message (placeholder path)
+# Example: send a message (placeholder path — replace with your confirmed endpoint)
 url = f"{API_BASE}/v1/messages"
 payload = {
     "to": "+1234567890",

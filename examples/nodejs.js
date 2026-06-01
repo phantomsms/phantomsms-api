@@ -1,18 +1,23 @@
 // Node.js example for PhantomSMS API (uses placeholder PHANTOMSMS_API_BASE)
-// WARNING: This example uses placeholders. Configure PHANTOMSMS_API_BASE and PHANTOMSMS_API_KEY in your environment.
+// This example will refuse to run until PHANTOMSMS_API_BASE is set in the environment.
 
-const fetch = require('node-fetch'); // or global fetch in newer Node.js
+const fetch = require('node-fetch');
 
-const API_BASE = process.env.PHANTOMSMS_API_BASE || 'PHANTOMSMS_API_BASE';
-const API_KEY = process.env.PHANTOMSMS_API_KEY || 'YOUR_API_KEY';
+const API_BASE = process.env.PHANTOMSMS_API_BASE;
+const API_KEY = process.env.PHANTOMSMS_API_KEY;
 
-if (API_BASE === 'PHANTOMSMS_API_BASE') {
+if (!API_BASE) {
   console.error('ERROR: PHANTOMSMS_API_BASE is not set. Please set the environment variable to your API base URL.');
   process.exit(1);
 }
 
+if (!API_KEY) {
+  console.error('ERROR: PHANTOMSMS_API_KEY is not set. Please set the environment variable to your API key.');
+  process.exit(1);
+}
+
 async function sendMessage() {
-  const url = `${API_BASE}/v1/messages`;
+  const url = `${API_BASE}/v1/messages`; // placeholder path — replace with confirmed path
   const res = await fetch(url, {
     method: 'POST',
     headers: {
