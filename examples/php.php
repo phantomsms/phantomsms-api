@@ -1,9 +1,10 @@
 <?php
 // PHP example for PhantomSMS API (uses placeholder PHANTOMSMS_API_BASE)
-// This example will refuse to run until PHANTOMSMS_API_BASE is set in the environment.
+// This example will refuse to run until PHANTOMSMS_API_BASE, PHANTOMSMS_API_KEY and PHANTOMSMS_RESOURCE_PATH are set in the environment.
 
 $apiBase = getenv('PHANTOMSMS_API_BASE');
 $apiKey  = getenv('PHANTOMSMS_API_KEY');
+$resourcePath = getenv('PHANTOMSMS_RESOURCE_PATH');
 
 if (!$apiBase) {
     fwrite(STDERR, "ERROR: PHANTOMSMS_API_BASE is not set. Please set the environment variable to your API base URL.\n");
@@ -15,7 +16,15 @@ if (!$apiKey) {
     exit(1);
 }
 
-$url = rtrim($apiBase, '/') . '/v1/messages'; // placeholder path — replace with confirmed path
+if (!$resourcePath) {
+    fwrite(STDERR, "ERROR: PHANTOMSMS_RESOURCE_PATH is not set. Please set the environment variable to the confirmed resource path (no leading slash).\n");
+    exit(1);
+}
+
+$apiBase = rtrim($apiBase, '/');
+$resource = ltrim($resourcePath, '/');
+$url = $apiBase . '/' . $resource; // no hard-coded paths
+
 $data = json_encode(["to" => "+1234567890", "message" => "Hello from PhantomSMS PHP example"]);
 
 $ch = curl_init($url);
@@ -34,5 +43,6 @@ if ($response === false) {
 }
 curl_close($ch);
 
+fwrite(STDOUT, "Request URL: $url\n");
 fwrite(STDOUT, "Status: $httpcode\n");
 fwrite(STDOUT, "Response: $response\n");

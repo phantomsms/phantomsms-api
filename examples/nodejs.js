@@ -1,10 +1,11 @@
 // Node.js example for PhantomSMS API (uses placeholder PHANTOMSMS_API_BASE)
-// This example will refuse to run until PHANTOMSMS_API_BASE is set in the environment.
+// This example will refuse to run until PHANTOMSMS_API_BASE, PHANTOMSMS_API_KEY and PHANTOMSMS_RESOURCE_PATH are set in the environment.
 
 const fetch = require('node-fetch');
 
 const API_BASE = process.env.PHANTOMSMS_API_BASE;
 const API_KEY = process.env.PHANTOMSMS_API_KEY;
+const RESOURCE_PATH = process.env.PHANTOMSMS_RESOURCE_PATH;
 
 if (!API_BASE) {
   console.error('ERROR: PHANTOMSMS_API_BASE is not set. Please set the environment variable to your API base URL.');
@@ -16,8 +17,16 @@ if (!API_KEY) {
   process.exit(1);
 }
 
+if (!RESOURCE_PATH) {
+  console.error('ERROR: PHANTOMSMS_RESOURCE_PATH is not set. Please set the environment variable to the confirmed resource path (no leading slash).');
+  process.exit(1);
+}
+
 async function sendMessage() {
-  const url = `${API_BASE}/v1/messages`; // placeholder path — replace with confirmed path
+  const apiBase = API_BASE.replace(/\/+$/, '');
+  const resource = RESOURCE_PATH.replace(/^\/+/, '');
+  const url = `${apiBase}/${resource}`; // no hard-coded paths
+
   const res = await fetch(url, {
     method: 'POST',
     headers: {
@@ -27,6 +36,7 @@ async function sendMessage() {
     body: JSON.stringify({ to: '+1234567890', message: 'Hello from PhantomSMS Node.js example' })
   });
 
+  console.log('Request URL:', url);
   console.log('Status:', res.status);
   const text = await res.text();
   console.log('Response:', text);
