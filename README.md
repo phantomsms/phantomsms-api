@@ -1,50 +1,27 @@
-# phantomsms-api
-Official PhantomSMS API examples for SMS verification, virtual numbers, OTP receiving and phone verification integration.
 # PhantomSMS API
 
-Official PhantomSMS API examples and integration guides.
+Official documentation and examples for the PhantomSMS REST API. PhantomSMS provides secure SMS verification, OTP verification, virtual numbers, and phone verification services for developers and businesses.
 
-## Features
+Key features
 
-- SMS Verification
-- OTP Receiving
-- Virtual Numbers
-- API Access
-- Multiple Country Support
+- SMS sending and delivery tracking
+- OTP generation & verification for secure sign-ups and authentication
+- Virtual numbers for receiving SMS and phone verification
+- Webhooks for real-time inbound messages and delivery events
+- Simple REST API with API key authentication
 
-## Documentation
+SEO keywords: SMS verification, OTP verification, virtual numbers, phone verification, SMS API, SMS OTP, phone number verification, virtual phone numbers
 
-https://www.phantomsms.com/
+Quick links
 
-## Example
+- Docs: docs/api.md
+- Examples: examples/python.py, examples/nodejs.js, examples/php.php
+- Installation & Quick Start: INSTALLATION.md
 
-```python
-import requests
+Getting help
 
-API_KEY = "YOUR_API_KEY"
+If you have questions or need support, open an issue in this repository or visit https://www.phantomsms.com/support.
 
-print("PhantomSMS API Example")
-## Features
+License
 
-- SMS Verification
-- OTP Receiving
-- Virtual Numbers
-- REST API
-- Multiple Country Support
-
-## Quick Start
-
-Register at:
-https://www.phantomsms.com
-
-Get your API key and start integrating.
-
-## Documentation
-
-https://www.phantomsms.com
-
-## Supported Languages
-
-- Python
-- Node.js
-- PHP
+This repository is licensed under the MIT License. See the LICENSE file for details.
