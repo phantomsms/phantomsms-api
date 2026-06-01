@@ -24,3 +24,27 @@ import requests
 API_KEY = "YOUR_API_KEY"
 
 print("PhantomSMS API Example")
+## Features
+
+- SMS Verification
+- OTP Receiving
+- Virtual Numbers
+- REST API
+- Multiple Country Support
+
+## Quick Start
+
+Register at:
+https://www.phantomsms.com
+
+Get your API key and start integrating.
+
+## Documentation
+
+https://www.phantomsms.com
+
+## Supported Languages
+
+- Python
+- Node.js
+- PHP
