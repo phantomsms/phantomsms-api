@@ -2,49 +2,28 @@
 <html lang="en">
 <head>
   <meta charset="utf-8" />
-  <meta name="viewport" content="width=device-width,initial-scale=1" />
-  <meta name="description" content="PhantomSMS — developer examples and quick start for sending SMS via API (example placeholders).">
-  <meta name="keywords" content="PhantomSMS, SMS API, SMS examples, developer, SDK, quick start, webhook, tutorials">
-  <title>PhantomSMS — Developer Examples</title>
-  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>PhantomSMS API</title>
+  <style>
+    body { font-family: system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial; margin: 2rem; color: #222 }
+    header { margin-bottom: 1.5rem }
+    .card { border: 1px solid #eee; padding: 1rem; border-radius: 8px; max-width: 800px }
+    a { color: #0366d6 }
+  </style>
 </head>
 <body>
-  <header class="site-header">
-    <div class="wrap">
-      <h1>PhantomSMS — Developer Examples</h1>
-      <p class="subtitle">Sample code, quick start, and docs for integrating SMS functionality (example placeholders).</p>
-    </div>
+  <header>
+    <h1>PhantomSMS API</h1>
+    <p>Reference repository containing docs and examples for the PhantomSMS API. This landing page is informational only.</p>
   </header>
-
-  <main class="wrap">
-    <section>
-      <h2>Quick start</h2>
-      <p>Open the <code>examples/</code> folder for ready-to-run examples in Python, Node.js, and PHP. Replace the <code>PHANTOMSMS_API_BASE</code> placeholder and your API key before running.</p>
-      <ul>
-        <li>Python: <code>python3 examples/python.py</code></li>
-        <li>Node.js: <code>node examples/nodejs.js</code> (Node 18+ or install <code>node-fetch</code>)</li>
-        <li>PHP: <code>php examples/php.php</code></li>
-      </ul>
-    </section>
-
-    <section>
-      <h2>Examples</h2>
-      <p>The examples included are intentionally minimal, developer-friendly, and documented inline. They use a placeholder base URL constant <code>PHANTOMSMS_API_BASE</code> — replace it with your API base URL.</p>
-    </section>
-
-    <section>
-      <h2>Links</h2>
-      <ul>
-        <li><a href="https://github.com/phantomsms/phantomsms-api">Repository on GitHub</a></li>
-        <li><a href="README.md">README & Quick Start</a></li>
-      </ul>
-    </section>
-  </main>
-
-  <footer class="site-footer">
-    <div class="wrap">
-      <small>© PhantomSMS • Examples are for demonstration only. Replace placeholders with your real API configuration.</small>
+  <main>
+    <div class="card">
+      <h2>Getting started</h2>
+      <p>See <a href="/README.md">README</a> and <a href="/docs/api.md">API docs</a> for setup instructions. Examples live in the <code>examples/</code> directory.</p>
+      <h3>Important</h3>
+      <p>This repository intentionally uses placeholder API base values. Do not hardcode production endpoints or API keys in public code. Configure <code>PHANTOMSMS_API_BASE</code> and <code>PHANTOMSMS_API_KEY</code> before running examples.</p>
     </div>
-  </footer>
+  </main>
+  <footer style="margin-top:1.5rem;color:#666">&copy; PhantomSMS — repository examples and docs</footer>
 </body>
 </html>

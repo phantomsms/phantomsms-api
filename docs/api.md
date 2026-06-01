@@ -1,151 +1,39 @@
-# PhantomSMS API Reference
+# API Reference (Placeholder)
 
-This document provides an overview of the PhantomSMS REST API endpoints, authentication, and example requests. Use these endpoints to send SMS, request and verify OTPs, manage virtual numbers, and receive messages via webhooks.
+WARNING: This file contains placeholder values only. The API endpoints that were previously included in this repository were not confirmed and may be incorrect or harmful to use. Do NOT use any hard-coded production endpoint values from this repository.
 
-Base URL
+All references to concrete hostnames (for example `api.phantomsms.com`) have been removed and replaced with a placeholder value: `PHANTOMSMS_API_BASE`.
 
-- Production: https://api.phantomsms.com/v1
+Before using the examples or making requests, set the PHANTOMSMS_API_BASE value to your API server's base URL (for example, `https://api.example.com`). Never commit real API keys or production endpoints to public repositories.
 
-Authentication
+## How to configure
 
-All requests require an API key. Send it in the `Authorization` header as a Bearer token.
+- Set an environment variable named `PHANTOMSMS_API_BASE` to the base URL of your PhantomSMS API.
+- Set an environment variable named `PHANTOMSMS_API_KEY` to your API key.
 
-Header example
+Examples (bash):
 
-```
-Authorization: Bearer YOUR_API_KEY
-Content-Type: application/json
-```
-
-Endpoints
-
-1) Send SMS
-
-POST /messages
-
-Request body
-
-```json
-{
-  "to": "+15551234567",
-  "from": "PhantomSMS",
-  "text": "Your verification code is 123456"
-}
+```bash
+export PHANTOMSMS_API_BASE="https://api.example.com"
+export PHANTOMSMS_API_KEY="sk_live_..."
 ```
 
-Response (201)
+## Placeholder endpoints
 
-```json
-{
-  "message_id": "msg_abc123",
-  "status": "queued"
-}
-```
+Below are example endpoint paths shown with the `PHANTOMSMS_API_BASE` placeholder. These are NOT real endpoints — they are examples only. Confirm your API's actual paths and parameters with your API provider.
 
-2) Create OTP session
+- {PHANTOMSMS_API_BASE}/v1/messages
+- {PHANTOMSMS_API_BASE}/v1/otp
+- {PHANTOMSMS_API_BASE}/v1/virtual_numbers
 
-POST /otp
+Replace the placeholder and the paths above with the real values provided by your PhantomSMS deployment.
 
-Request body
+## Security
 
-```json
-{
-  "to": "+15551234567",
-  "length": 6,
-  "ttl": 300
-}
-```
+- Never expose API keys in client-side code or public repositories.
+- Use secure transport (HTTPS) for all API requests.
+- Rotate keys if you believe they have been exposed.
 
-Response
+## Contact / Support
 
-```json
-{
-  "otp_id": "otp_abc123",
-  "expires_in": 300
-}
-```
-
-3) Verify OTP
-
-POST /otp/verify
-
-Request body
-
-```json
-{
-  "otp_id": "otp_abc123",
-  "code": "123456"
-}
-```
-
-Response
-
-```json
-{
-  "verified": true,
-  "phone": "+15551234567"
-}
-```
-
-4) List virtual numbers
-
-GET /virtual_numbers
-
-Response
-
-```json
-{
-  "numbers": [
-    "+12025550123",
-    "+447700900000"
-  ]
-}
-```
-
-5) Receive messages (Webhook)
-
-PhantomSMS posts inbound messages and delivery receipts to the webhook URL you configure in the dashboard.
-
-Example inbound webhook payload (POST)
-
-```json
-{
-  "type": "inbound",
-  "message_id": "msg_in_123",
-  "from": "+15551234567",
-  "to": "+12025550123",
-  "text": "Your OTP is 123456",
-  "received_at": "2026-06-01T12:00:00Z"
-}
-```
-
-Error handling
-
-Errors use standard HTTP status codes and return JSON with details:
-
-```json
-{
-  "error": {
-    "code": "invalid_api_key",
-    "message": "The provided API key is invalid"
-  }
-}
-```
-
-Rate limits
-
-- Default: 60 requests per minute per API key. Contact support to increase limits for production traffic.
-
-Webhooks & best practices
-
-- Always respond with HTTP 200 quickly to acknowledge receipt.
-- Validate webhook signatures if enabled in the dashboard.
-- Retry logic: PhantomSMS will retry failed webhook deliveries with exponential backoff.
-
-SDKs & Libraries
-
-We provide official SDKs and examples in this repository for Python, Node.js, and PHP. Community SDKs may be available—check the README and topics.
-
-Contact & support
-
-For enterprise onboarding, dedicated IPs, and compliance questions, contact sales@phantomsms.com or visit https://www.phantomsms.com.
+If you are unsure which endpoints to use, consult the official PhantomSMS service documentation or contact your administrator. This repository intentionally omits confirmed production endpoints.

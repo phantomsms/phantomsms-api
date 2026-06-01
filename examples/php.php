@@ -1,53 +1,33 @@
 <?php
-// examples/php.php
-// EXAMPLE: replace PHANTOMSMS_API_BASE with your real API base URL and set API_KEY securely.
-// This example uses cURL and demonstrates basic error handling.
+// PHP example for PhantomSMS API (uses placeholder PHANTOMSMS_API_BASE)
+// WARNING: This example uses placeholders. Configure PHANTOMSMS_API_BASE and PHANTOMSMS_API_KEY in your environment.
 
-$PHANTOMSMS_API_BASE = 'https://PHANTOMSMS_API_BASE'; // EXAMPLE placeholder
-$API_KEY = 'YOUR_API_KEY'; // In production, use getenv() or secure storage
+$apiBase = getenv('PHANTOMSMS_API_BASE') ?: 'PHANTOMSMS_API_BASE';
+$apiKey  = getenv('PHANTOMSMS_API_KEY') ?: 'YOUR_API_KEY';
 
-function send_sms($to, $from, $message) {
-    global $PHANTOMSMS_API_BASE, $API_KEY;
-
-    $url = rtrim($PHANTOMSMS_API_BASE, '/') . '/sms/send'; // example path - replace with real endpoint
-    $payload = json_encode([
-        'to' => $to,
-        'from' => $from,
-        'message' => $message,
-    ]);
-
-    $ch = curl_init($url);
-    curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
-    curl_setopt($ch, CURLOPT_POST, true);
-    curl_setopt($ch, CURLOPT_HTTPHEADER, [
-        'Authorization: Bearer ' . $API_KEY,
-        'Content-Type: application/json',
-        'Accept: application/json',
-    ]);
-    curl_setopt($ch, CURLOPT_POSTFIELDS, $payload);
-
-    $response = curl_exec($ch);
-    if ($response === false) {
-        $err = curl_error($ch);
-        curl_close($ch);
-        throw new Exception('cURL error: ' . $err);
-    }
-
-    $httpCode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
-    curl_close($ch);
-
-    $decoded = json_decode($response, true);
-    if ($httpCode < 200 || $httpCode >= 300) {
-        $msg = isset($decoded['error']) ? json_encode($decoded['error']) : $response;
-        throw new Exception("HTTP {$httpCode}: {$msg}");
-    }
-
-    return $decoded;
+if ($apiBase === 'PHANTOMSMS_API_BASE') {
+    fwrite(STDERR, "ERROR: PHANTOMSMS_API_BASE is not set. Please set the environment variable to your API base URL.\n");
+    exit(1);
 }
 
-try {
-    $result = send_sms('+15551234567', 'PHANTOM', 'Hello from PhantomSMS (example).');
-    echo "SMS sent: " . print_r($result, true) . PHP_EOL;
-} catch (Exception $e) {
-    echo "Error sending SMS: " . $e->getMessage() . PHP_EOL;
+$url = rtrim($apiBase, '/') . '/v1/messages';
+$data = json_encode(["to" => "+1234567890", "message" => "Hello from PhantomSMS PHP example"]);
+
+$ch = curl_init($url);
+curl_setopt($ch, CURLOPT_RETURNTRANSFER, true);
+curl_setopt($ch, CURLOPT_HTTPHEADER, [
+    'Authorization: Bearer ' . $apiKey,
+    'Content-Type: application/json',
+    'Content-Length: ' . strlen($data)
+]);
+curl_setopt($ch, CURLOPT_POST, true);
+curl_setopt($ch, CURLOPT_POSTFIELDS, $data);
+$response = curl_exec($ch);
+$httpcode = curl_getinfo($ch, CURLINFO_HTTP_CODE);
+if ($response === false) {
+    fwrite(STDERR, 'cURL error: ' . curl_error($ch) . "\n");
 }
+curl_close($ch);
+
+fwrite(STDOUT, "Status: $httpcode\n");
+fwrite(STDOUT, "Response: $response\n");

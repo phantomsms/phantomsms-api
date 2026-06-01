@@ -1,36 +1,30 @@
-// examples/nodejs.js
-// EXAMPLE: replace PHANTOMSMS_API_BASE with your real API base URL and set PHANTOMSMS_API_KEY via env vars
-// Requires Node 18+ (global fetch) or install node-fetch for earlier versions.
+// Node.js example for PhantomSMS API (uses placeholder PHANTOMSMS_API_BASE)
+// WARNING: This example uses placeholders. Configure PHANTOMSMS_API_BASE and PHANTOMSMS_API_KEY in your environment.
 
-const PHANTOMSMS_API_BASE = process.env.PHANTOMSMS_API_BASE || 'https://PHANTOMSMS_API_BASE'; // EXAMPLE placeholder
+const fetch = require('node-fetch'); // or global fetch in newer Node.js
+
+const API_BASE = process.env.PHANTOMSMS_API_BASE || 'PHANTOMSMS_API_BASE';
 const API_KEY = process.env.PHANTOMSMS_API_KEY || 'YOUR_API_KEY';
 
-async function sendSms(to, from, message) {
-  const url = `${PHANTOMSMS_API_BASE.replace(/\/+$/, '')}/sms/send`; // example path
-  const body = { to, from, message };
+if (API_BASE === 'PHANTOMSMS_API_BASE') {
+  console.error('ERROR: PHANTOMSMS_API_BASE is not set. Please set the environment variable to your API base URL.');
+  process.exit(1);
+}
 
+async function sendMessage() {
+  const url = `${API_BASE}/v1/messages`;
   const res = await fetch(url, {
     method: 'POST',
     headers: {
       'Authorization': `Bearer ${API_KEY}`,
-      'Content-Type': 'application/json',
-      'Accept': 'application/json',
+      'Content-Type': 'application/json'
     },
-    body: JSON.stringify(body),
+    body: JSON.stringify({ to: '+1234567890', message: 'Hello from PhantomSMS Node.js example' })
   });
 
-  if (!res.ok) {
-    const text = await res.text();
-    throw new Error(`HTTP ${res.status}: ${text}`);
-  }
-  return res.json();
+  console.log('Status:', res.status);
+  const text = await res.text();
+  console.log('Response:', text);
 }
 
-(async () => {
-  try {
-    const result = await sendSms('+15551234567', 'PHANTOM', 'Hello from PhantomSMS (example).');
-    console.log('SMS sent:', result);
-  } catch (err) {
-    console.error('Error sending SMS:', err);
-  }
-})();
+sendMessage().catch(err => { console.error(err); process.exit(1); });

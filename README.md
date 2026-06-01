@@ -1,55 +1,48 @@
-# PhantomSMS — Developer Examples
+# PhantomSMS API
 
-Developer-focused examples and quick start for integrating SMS functionality. These examples are intentionally minimal and use placeholders — replace them with your API base URL and credentials before using.
+PhantomSMS API repository — server and client examples for interacting with the PhantomSMS service.
 
-GitHub Pages: https://phantomsms.github.io/phantomsms-api/
+This repository contains reference documentation and example code to help you integrate with the PhantomSMS API. Note: this repository contains placeholder values and example code. Do not use hard-coded production endpoints or API keys in public repositories.
 
 ## Quick start
 
-1. Clone this repo:
-   ```bash
-   git clone https://github.com/phantomsms/phantomsms-api.git
-   cd phantomsms-api
-   ```
+1. Set the PHANTOMSMS_API_BASE environment variable to the base URL of your PhantomSMS API (for example, https://api.example.com).
+2. Set PHANTOMSMS_API_KEY to your API key.
+3. Use the example scripts in the `examples/` directory after replacing placeholders.
 
-2. Update placeholders:
-   - Replace `PHANTOMSMS_API_BASE` with your API base URL in `examples/*`.
-   - Set API keys securely (environment variables or secrets manager).
+## Requirements
 
-3. Run examples:
-   - Python:
-     ```bash
-     python3 examples/python.py
-     ```
-   - Node.js (Node 18+ recommended):
-     ```bash
-     PHANTOMSMS_API_BASE=https://api.example.com PHANTOMSMS_API_KEY=abc node examples/nodejs.js
-     ```
-   - PHP:
-     ```bash
-     php examples/php.php
-     ```
+- Python 3.8+ (for Python example)
+- Node.js 12+ (for Node.js example)
+- PHP 7.4+ (for PHP example)
 
-## Features
+## Installation
 
-- Minimal, readable examples in Python, Node.js, and PHP
-- Clear placeholders for API base and keys (PHANTOMSMS_API_BASE)
-- Examples use standard HTTP conventions (Bearer token, application/json)
-- GitHub Pages landing page for quick access to docs and examples
+Clone the repository and read the `docs/` folder for details:
+
+```bash
+git clone https://github.com/phantomsms/phantomsms-api.git
+cd phantomsms-api
+```
+
+## Usage
+
+Examples are provided in the `examples/` directory. Each example uses the environment variable `PHANTOMSMS_API_BASE` instead of hard-coded endpoints. Replace placeholders and secrets before running.
 
 ## Examples
 
-- The examples demonstrate a single use-case: sending an SMS. They are intentionally small to be easy to adapt into production code.
-- Important: the example path `/sms/send` is illustrative. Use the documented endpoints from your SMS provider and follow their authentication scheme.
+- examples/python.py — Python usage example
+- examples/nodejs.js — Node.js usage example
+- examples/php.php — PHP usage example
+
+## Documentation
+
+See the `docs/` directory. Beware: docs contain placeholders for API endpoints and must be configured before use.
 
 ## Contributing
 
-Contributions welcome — open a PR or issue. Please keep code examples small, language-specific, and well-documented.
-
-## SEO keywords
-
-PhantomSMS, SMS API, SMS examples, SMS quick start, developer examples, API integration, SMS SDK, webhook, SMS gateway
+Contributions are welcome. Please open an issue or pull request.
 
 ## License
 
-Specify license here (e.g., MIT). Replace or add LICENSE file as appropriate.
+This repository does not include licensing information. Add a LICENSE file if needed.
