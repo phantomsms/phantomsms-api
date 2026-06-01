@@ -1,64 +1,45 @@
-"""
-PhantomSMS API Python examples
-
-Install:
-    pip install requests
-
-Replace YOUR_API_KEY with your API key
-"""
+# examples/python.py
+# EXAMPLE: replace PHANTOMSMS_API_BASE with your real API base URL and set API_KEY securely.
+# This is a minimal, developer-friendly example demonstrating an HTTP POST to send SMS.
 
 import requests
-import os
 
-API_BASE = "https://api.phantomsms.com/v1"
-API_KEY = os.getenv('PHANTOMSMS_API_KEY', 'YOUR_API_KEY')
-HEADERS = {
-    'Authorization': f'Bearer {API_KEY}',
-    'Content-Type': 'application/json'
-}
+PHANTOMSMS_API_BASE = "https://PHANTOMSMS_API_BASE"  # EXAMPLE placeholder — replace with your base URL
+API_KEY = "YOUR_API_KEY"  # In production, load this from env vars or a secrets manager
 
 
-def send_sms(to, text, sender='PhantomSMS'):
-    payload = {
-        'to': to,
-        'from': sender,
-        'text': text
+def send_sms(to, from_, message):
+    """
+    Send an SMS. This is an example — do not assume this endpoint exists in your provider.
+    Replace the URL path with your provider's documented endpoint.
+    """
+    url = f"{PHANTOMSMS_API_BASE.rstrip('/')}/sms/send"  # example path (replace with real path)
+    headers = {
+        "Authorization": f"Bearer {API_KEY}",
+        "Content-Type": "application/json",
+        "Accept": "application/json",
     }
-    resp = requests.post(f"{API_BASE}/messages", json=payload, headers=HEADERS)
-    resp.raise_for_status()
-    return resp.json()
-
-
-def create_otp(to, length=6, ttl=300):
     payload = {
-        'to': to,
-        'length': length,
-        'ttl': ttl
+        "to": to,
+        "from": from_,
+        "message": message,
     }
-    resp = requests.post(f"{API_BASE}/otp", json=payload, headers=HEADERS)
+
+    resp = requests.post(url, json=payload, headers=headers, timeout=10)
     resp.raise_for_status()
     return resp.json()
 
 
-def verify_otp(otp_id, code):
-    payload = {'otp_id': otp_id, 'code': code}
-    resp = requests.post(f"{API_BASE}/otp/verify", json=payload, headers=HEADERS)
-    resp.raise_for_status()
-    return resp.json()
+def main():
+    to = "+15551234567"
+    from_ = "PHANTOM"
+    message = "Hello from PhantomSMS (example). Replace placeholders with real values."
+    try:
+        result = send_sms(to, from_, message)
+        print("SMS sent:", result)
+    except Exception as e:
+        print("Error sending SMS:", e)
 
 
-if __name__ == '__main__':
-    # Quick demo (replace numbers and key before using in production)
-    to_number = '+15551234567'
-
-    print('Creating OTP...')
-    otp = create_otp(to_number)
-    print('OTP created:', otp)
-
-    print('Send a test SMS...')
-    msg = send_sms(to_number, 'Your verification code is 123456')
-    print('SMS response:', msg)
-
-    # Example verification (use real code from SMS)
-    # verify = verify_otp(otp['otp_id'], '123456')
-    # print('Verify result:', verify)
+if __name__ == "__main__":
+    main()
